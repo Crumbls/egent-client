@@ -18,6 +18,9 @@ use App\Http\Requests\OfficeStoreRequest;
 use App\Http\Requests\OfficeUpdateRequest;
 use Egent\Office\Controllers\AbstractController as Controller;
 
+/**
+ * Destroy.
+ */
 class DestroyController extends DeleteController
 {
 	/**
@@ -71,6 +74,7 @@ class DestroyController extends DeleteController
 		}
 
 		flash('success', __('Client Removed'));
+
 		return redirect()->route('clients.index');
 	}
 }

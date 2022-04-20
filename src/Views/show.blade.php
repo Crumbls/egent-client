@@ -36,7 +36,60 @@
         </div>
     </div>
 
-    Long story short, this is a client dashboard for either a user, or anyone in the office of the user.
+    <div class="container mx-auto">
+        <div class="w-full">
+            @if(false)
+                Client Information
+            @endif
+            <div class="w-full flex">
+                <div class="w-full md:w-1/2 md:pr-2 flex flex-col">
+                    <div class="bg-white text-black shadow p-4 mb-4 h-full">
 
-    {{ $entity }}
+                        <x-client-basic :user="$entity" />
+                    </div>
+
+                </div>
+                <div class="w-full md:w-1/4 md:px-2 flex flex-col">
+                    <div class="bg-white text-black shadow p-4 mb-4 h-full">
+                        <x-client-deadline-upcoming :user="$entity" />
+                    </div>
+                </div>
+                <div class="w-full md:w-1/4 md:pl-2 flex flex-col">
+                    <div class="bg-white text-black shadow p-4 mb-4 h-full">
+                        <x-client-notification :user="$entity" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container mx-auto">
+                <div class="md:flex mb-2">
+                    <div class="w-full md:w-3/4 md:flex md:items-center">
+                        <div class="text-left">
+                            <h1 class="uppercase text-xl font-extrabold mb-2">@lang('Listings')</h1>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/4 md:justify-end md:flex md:items-center">
+                        <div class="text-center md:text-right">
+                            @if(false)
+                            @can('create', \Egent\Listing\Models\Listing::class)
+                                <a href="{!! route('user-clients.listing', $entity) !!}" rel="bookmark" class="flex items-center justify-center space-x-2 hover:text-yellow-400">
+                                    <span>@lang('Add New Listing')</span>
+                                    <div class="bg-yellow-400 rounded shadow text-white w-6 h-6 inline-block rounded-full flex items-center justify-center">
+                                        <i class="mdi mdi-plus"></i>
+                                    </div>
+                                </a>
+                            @endcan
+                                @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <x-client-listings :user="$entity" />
+            <x-client-contracts :user="$entity" />
+            <x-client-drafts :user="$entity" />
+            <x-client-archived :user="$entity" />
+        </div>
+
 </x-app-layout>

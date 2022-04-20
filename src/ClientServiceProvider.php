@@ -27,11 +27,11 @@ class ClientServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/Views', 'client');
 //		return;
 	    $this->bootCommands();
+	    $this->bootComponents();
 //		exit;
 	    $this->bootRoutes();
 		return;
 		$this->bootPolicy();
-        $this->bootComponents();
     }
 	/**
 	 * Bring out commands online.
@@ -47,13 +47,19 @@ class ClientServiceProvider extends ServiceProvider
 	 */
 	private function bootComponents() : void
 	{
+
 		$prefix = '';
 		$this->callAfterResolving(\Illuminate\View\Compilers\BladeCompiler::class, function ($blade) use ($prefix) {
 			$components = [
-				'office-user-pending-membership' => \Egent\Office\Components\UserPendingMemberships::class,
-				'office-clients' => \Egent\Office\Components\OfficeClients::class,
-				'office-listings' => \Egent\Office\Components\OfficeListings::class,
-				'office-users' => \Egent\Office\Components\OfficeUsers::class
+				'client-archived' => \Egent\Client\Components\Archived::class,
+				'client-basic' => \Egent\Client\Components\BasicInfo::class,
+				'client-contracts' => \Egent\Client\Components\Contracts::class,
+				'client-deadline-upcoming' => \Egent\Client\Components\DeadlineUpcoming::class,
+				'client-documents' => \Egent\Client\Components\Documents::class,
+				'client-drafts' => \Egent\Client\Components\Drafts::class,
+				'client-listings' => \Egent\Client\Components\Listings::class,
+				'client-notification' => \Egent\Client\Components\Notifications::class,
+				'client-table' => \Egent\Client\Components\ClientTable::class
 			];
 			foreach ($components as $alias => $component) {
 				$blade->component($component, is_string($alias) ? $alias : null, $prefix);

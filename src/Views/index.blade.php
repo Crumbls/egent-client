@@ -36,67 +36,7 @@
         </div>
     </div>
 
-    @if($entities->isEmpty())
-        @lang('You have no offers associated with this listing.')
-    @else
-        <div class="bg-white text-black shadow mb-4 container mx-auto">
-        @foreach($entities as $entity)
-            <div
-                    data-href="{{ route('clients.show', [$entity]) }}"
-                    class="block md:flex w-full {{ $loop->index % 2 ? 'bg-gray-100 border-gray-100' : 'bg-white border-white' }} border-gray-100  hover:bg-gray-200 border-l-4  dis-hover:border-blue-300 cursor-pointer">
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Name')
-                    </p>
-                    <span>{{ $entity->name }}</span>
-                </div>
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Name')
-                    </p>
-                    <span>{{ $entity->email }}</span>
-                </div>
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Notes')
-                    </p>
-                </div>
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Type')
-                    </p>
-                    a
-                </div>
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Date Accepted')
-                    </p>
-                    aa
-                </div>
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Status')
-                    </p>
-                    {{ $entity->name }}
-                </div>
-                <div class="p-1 px-4 md:p-4 w-full md:w-1/7">
-                    <p class="w-full sort-column text-gray-500 font-thin text-left md:hidden">
-                        @lang('Actions')
-                    </p>
-                    accct
-                </div>
-            </div>
-        @endforeach
-        </div>
-        @if(method_exists($entities, 'links'))
-        <div class="mb-5 mt-4">
-            <div class="flex flex-wrap justify-between">
-                <div class="w-full">
-                    <!-- Filters, etc -->
-                    {!! $entities->links() !!}
-                </div>
-            </div>
-        </div>
-        @endif
-    @endif
+    <div class="container mx-auto">
+    <x-client-table />
+    </div>
 </x-app-layout>
