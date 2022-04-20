@@ -22,12 +22,7 @@ class ShowController extends AbstractController
 		abort_if(!$uuid, 404);
 		abort_if(!\Str::isUuid($uuid), 404);
 
-		$client = User::where(function($sub) use ($user) {
-			$sub->whereIn('users.id', $user->clients()->select('users.id'));
-			if ($offices = $user->offices->pluck('id')->toArray()) {
-				$sub->orWhereIn('users.id', OfficeClient::whereIn('office_id', $offices)->select('user_id'));
-			}
-		})
+		$client = User::clientOf($user)
 			->where('users.uuid', $uuid)
 			->take(1)
 			->first();

@@ -2,6 +2,7 @@
 namespace Egent\Client\Controllers;
 
 use App\Jobs\ImportOfficeByMlsId;
+use App\Models\User;
 use Egent\Office\Models\Office;
 use Egent\Listing\Models\Property;
 use App\Models\Role;
@@ -14,7 +15,7 @@ use App\Http\Requests\OfficeStoreRequest;
 use App\Http\Requests\OfficeUpdateRequest;
 use Egent\Office\Controllers\AbstractController as Controller;
 
-class DeleteController extends Controller
+class DeleteController extends AbstractController
 {
 
     /**
@@ -22,13 +23,24 @@ class DeleteController extends Controller
      * @param \Egent\Office\Models\Office $office
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, Office $office)
+    public function __invoke(Request $request)
     {
-        $this->authorize('delete', $office);
+	    $user = \Auth::user();
 
-            return view('office::delete', [
-                'office' => $office,
-                'title' => __('Delete Office')
+	    $uuid = $request->client;
+	    abort_if(!$uuid, 404);
+	    abort_if(!\Str::isUuid($uuid), 404);
+
+	    $client = User::clientOf($user)
+		    ->where('users.uuid', $uuid)
+		    ->take(1)
+		    ->first();
+		abort_if(!$client, 404);
+
+
+	    return view('client::delete', [
+			'user' => $user,
+				'entity' => $client
             ]);
     }
 }
