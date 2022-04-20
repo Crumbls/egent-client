@@ -4,6 +4,8 @@
 
 Client package for eGent.  This handles all important client code, mostly migrations, crud, etc.
 
+It's important to remember that clients are just users.  This handles their association with other models.
+
 ---
 
 ## TODO

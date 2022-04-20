@@ -25,10 +25,12 @@ class ClientServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/Views', 'client');
+//		return;
+	    $this->bootCommands();
+//		exit;
+	    $this->bootRoutes();
 		return;
-		$this->bootCommands();
 		$this->bootPolicy();
-		$this->bootRoutes();
         $this->bootComponents();
     }
 	/**
@@ -64,8 +66,8 @@ class ClientServiceProvider extends ServiceProvider
 	protected function bootPolicy() : void {
 //		Gate::define('transaction-policy', [TransactionPolicy::class, 'show']);
 ///		Gate::policy('transaction-policy', function($user) { return true; });//[TransactionPolicy::class, 'view']);
-		if ($temp = \Config::get('office.policy')) {
-			Gate::policy(Office::class, $temp);
+		if ($temp = \Config::get('client.policy')) {
+//			Gate::policy(Office::class, $temp);
 		}
 	}
 
